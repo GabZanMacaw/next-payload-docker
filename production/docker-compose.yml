@@ -1,0 +1,37 @@
+# Esse compose é para produção!
+# Para desenvolvimento, rode:
+# ```sh
+# cd ..
+# docker compose up
+# npm run dev
+# ```
+# Lembre-se de mudar o arquivo .env para configurar as suas credenciais.
+
+version: '3'
+
+services:
+  mongo:
+    image: mongo:latest
+    restart: unless-stopped
+    attach: false
+    command:
+      - --storageEngine=wiredTiger
+    volumes:
+      - data:/data/db
+    logging:
+      driver: none
+  
+  payload:
+    build: ..
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
+    volumes:
+      - media:/home/node/media
+    working_dir: /home/node
+    depends_on:
+      - mongo
+
+volumes:
+  data:
+  media:

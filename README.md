@@ -1,0 +1,1 @@
+1. Não usar geração estática. Todas as páginas devem ser dinâmicas porque o Payload não existe no momento de build do Next.

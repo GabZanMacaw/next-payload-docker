@@ -1,0 +1,30 @@
+# Esse compose é só para criar um mongo para desenvolvimento!
+# Para usar, é só rodar:
+# ```sh
+# docker compose up
+# npm run dev
+# ```
+#
+# Para produção, rode:
+# ```sh
+# cd production
+# docker compose up --build
+# ```
+
+version: '3'
+
+services:
+  mongo:
+    image: mongo:latest
+    attach: false
+    ports:
+      - '27017:27017'
+    command:
+      - --storageEngine=wiredTiger
+    volumes:
+      - data:/data/db
+    logging:
+      driver: none
+
+volumes:
+  data:
